@@ -1,0 +1,139 @@
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #282A36;
+    color: #F8F8F2;
+    font-family: "courier New", monospace;
+}
+
+button {
+    padding: 0;
+    margin: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: "courier New", monospace;
+
+    /* no default styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+}
+
+.note_selection {
+    height: 90vh;
+    border-right: 2px solid #BD93F9;
+    overflow: auto;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: flex-start;
+
+    flex: 0 1 25%;
+}
+.note {
+    width: 90%;
+    height: 15%;
+    margin-bottom: 5%;
+    padding: 5px;
+    overflow: hidden;
+}
+.note h2 {
+    margin: 0;
+    padding: 0;
+    padding-bottom: 3%;
+    font-size: 150%;
+    white-space: nowrap;
+}
+.note p {
+    margin: 0;
+    padding: 0;
+    font-size: 90%;
+}
+.add_button {
+    max-width: 80px;
+    max-height: 80px;
+    width: 15vw;
+    height: 15vw;
+    background-image: url("images/plus.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.add_button:hover {
+    filter: drop-shadow(0 0 8px #BD93F9);
+}
+.add_button:active {
+    transform: scale(0.95);
+}
+
+.active_note {
+    height: 80vh;
+
+    display: grid;
+    grid-template-columns: 1fr 10fr 5fr 1fr 5fr 1fr;
+    grid-template-rows: 1fr 3fr 1fr 15fr 1fr 2fr 1fr;
+
+    flex: 1;
+}
+.active_note input {
+    border: none;
+    background-color: #282A36;
+    color: #F8F8F2;
+    font-size: 250%;
+    font-weight: bold;
+    font-family: "courier New", monospace;
+
+    grid-column: 2 / -2;
+    grid-row: 2 / 3;
+}
+.active_note textarea {
+    border: none;
+    background-color: #282A36;
+    color: #F8F8F2;
+    font-size: 150%;
+    resize: none;
+    font-family: "courier New", monospace;
+
+    grid-column: 2 / -2;
+    grid-row: 4 / -4;
+}
+.active_note button {
+    font-size: 230%;
+    font-weight: bold;
+}
+button.delete {
+    color: #FF5555;
+
+    grid-column: 3 / 4;
+    grid-row: -2 / -3;
+}
+button.save {
+    color: #50FA7B;
+
+    grid-column: 5 / 6;
+    grid-row: -2 / -3;
+}
+button.delete:hover {
+    text-shadow: 0 0 1rem #FF5555;
+}
+button.save:hover {
+    text-shadow: 0 0 1rem #F50FA7;
+}
+button.save:active, button.delete:active {
+    font-size: 220%;
+}
