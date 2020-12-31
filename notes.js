@@ -58,7 +58,7 @@ function replace(index, title, body) {
 // take a note's index
 // destroy the note
 // return the destroyed note
-function delete(index) {
+function remove(index) {
     if (!notes.has(index)) throw new NoteIndexError('Invalid Index');
 
     let note = notes.get(index);
@@ -67,4 +67,4 @@ function delete(index) {
     return note;
 }
 
-export {add, get, replace, delete};
+export {add, get, replace, remove};

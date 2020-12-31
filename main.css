@@ -48,10 +48,17 @@ button {
 }
 .note {
     width: 90%;
-    height: 15%;
+    max-height: 12%;
     margin-bottom: 5%;
     padding: 5px;
     overflow: hidden;
+    cursor: pointer;
+}
+.note:hover {
+    background-color: #424559;
+}
+.note.active {
+    border-left: 1px solid #BD93F9;
 }
 .note h2 {
     margin: 0;
@@ -65,7 +72,7 @@ button {
     padding: 0;
     font-size: 90%;
 }
-.add_button {
+.add {
     max-width: 80px;
     max-height: 80px;
     width: 15vw;
@@ -74,10 +81,10 @@ button {
     background-size: contain;
     background-repeat: no-repeat;
 }
-.add_button:hover {
+.add:hover {
     filter: drop-shadow(0 0 8px #BD93F9);
 }
-.add_button:active {
+.add:active {
     transform: scale(0.95);
 }
 
