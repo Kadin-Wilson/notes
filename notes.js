@@ -82,9 +82,13 @@ function remove(index) {
 
 // run the given function for every key
 function load(func) {
+    let max = 0;
     for (let i = 0; i < localStorage.length; ++i) {
-        func(localStorage.key(i));
+        let key = localStorage.key(i);
+        func(key);
+        max = Number(key) > max ? Number(key) : max;
     }
+    for (let i = 0; i <= max; ++i) getIndex(); // avoid collision with saved indexs
 }
 
 export {add, get, replace, remove, load};
