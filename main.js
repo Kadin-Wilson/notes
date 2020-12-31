@@ -3,6 +3,9 @@ import * as Notes from './notes.js';
 
 let activeNote = null;
 
+// load saved notes
+Notes.load(addNote);
+
 let saveBtn = document.querySelector('.save');
 saveBtn.addEventListener('click', save);
 

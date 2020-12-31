@@ -1,7 +1,4 @@
-// notes maps index -> note
-// note: note object from class Note
-// index: unique Symbol
-const notes = new Map();
+import * as LS from './localStorage.js';
 
 class Note {
     constructor(title, body) {
@@ -10,8 +7,8 @@ class Note {
     }
 
     // return clone of the note
-    copy() {
-        return new Note(this.title, this.body);
+    static copy(note) {
+        return new Note(note.title, note.body);
     }
 }
 
@@ -24,12 +21,28 @@ class NoteIndexError extends Error {
 }
 
 
+// ugly way to get unique strings
+function getIndexGenerator() {
+    function* generateIndex() {
+        let index = 0;
+        
+        while (true) {
+            yield String(index++);
+        }
+    }
+
+    const generator = generateIndex();
+
+    return function () { return generator.next().value };
+}
+const getIndex = getIndexGenerator();
+
 
 // create a new note
 // return it's index
 function add(title, body) {
-    let noteIndex = Symbol('noteIndex');
-    notes.set(noteIndex, new Note(title, body));
+    let noteIndex = getIndex();
+    LS.set(noteIndex, new Note(title, body));
     
     return noteIndex;
 }
@@ -37,20 +50,20 @@ function add(title, body) {
 // take a note's index
 // return copy of the note
 function get(index) {
-    if (!notes.has(index)) throw new NoteIndexError('Invalid Index');
+    if (!LS.has(index)) throw new NoteIndexError('Invalid Index');
 
-    return notes.get(index).copy();
+    return LS.get(index);
 }
 
 // take a note's index and new content
 // replace the note with the new content
 // return old note
 function replace(index, title, body) {
-    if (!notes.has(index)) throw new NoteIndexError('Invalid Index');
+    if (!LS.has(index)) throw new NoteIndexError('Invalid Index');
 
     let newNote = new Note(title, body);
-    let oldNote = notes.get(index);
-    notes.set(index, newNote);
+    let oldNote = LS.get(index);
+    LS.set(index, newNote);
 
     return oldNote;
 }
@@ -59,12 +72,19 @@ function replace(index, title, body) {
 // destroy the note
 // return the destroyed note
 function remove(index) {
-    if (!notes.has(index)) throw new NoteIndexError('Invalid Index');
+    if (!LS.has(index)) throw new NoteIndexError('Invalid Index');
 
-    let note = notes.get(index);
-    notes.delete(index);
+    let note = LS.get(index);
+    LS.remove(index);
 
     return note;
 }
 
-export {add, get, replace, remove};
+// run the given function for every key
+function load(func) {
+    for (let i = 0; i < localStorage.length; ++i) {
+        func(localStorage.key(i));
+    }
+}
+
+export {add, get, replace, remove, load};
