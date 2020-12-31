@@ -1,10 +1,13 @@
 import * as Notes from './notes.js';
 
 
-let activeNote = null;
-
 // load saved notes
 Notes.load(addNote);
+
+// set initial active note
+let activeNote = null;
+if(document.querySelector('.note'))
+    makeActiveNote.call(document.querySelector('.note'));
 
 let saveBtn = document.querySelector('.save');
 saveBtn.addEventListener('click', save);
@@ -34,11 +37,19 @@ function remove() {
     if (activeNote === null) return; // can't remove nonexistent note
 
     Notes.remove(activeNote.noteIndex);
-    activeNote.remove();
+    
+    // find note to pass Active to
+    let adjacentNote = activeNote.nextElementSibling;
+    if (adjacentNote && !adjacentNote.classList.contains('note')) 
+        adjacentNote = activeNote.previousElementSibling;
 
+    activeNote.remove();
     onOverflow();
 
-    newNote();
+    if (adjacentNote)
+        makeActiveNote.call(adjacentNote);
+    else
+        newNote();
 }
 
 // takes a note index and returns a constructed note element
