@@ -33,6 +33,8 @@ function remove() {
     Notes.remove(activeNote.noteIndex);
     activeNote.remove();
 
+    onOverflow();
+
     newNote();
 }
 
@@ -53,9 +55,11 @@ function addNote(index) {
     noteElm.noteIndex = index;
 
     // add to document
-    document.querySelector('.note_selection').insertBefore(noteElm, addBtn);
+    document.querySelector('.note_list').prepend(noteElm);
 
     noteElm.addEventListener('click', makeActiveNote);
+    
+    onOverflow();
 
     return noteElm;
 }
@@ -104,4 +108,25 @@ function setContent(title, body) {
 
     titleInputElm.value = title;
     bodyInputElm.value = body;
+}
+
+// reposition the add button if note_list is overflowing
+function onOverflow() {
+    let noteList = document.querySelector('.note_list');
+
+    if (noteList.scrollHeight > noteList.clientHeight
+            && !document.querySelector('.button_container')) { 
+        let btnContainer = document.createElement('div');
+        btnContainer.classList.add('button_container');
+
+        noteList.parentNode.append(btnContainer);
+        btnContainer.append(addBtn);
+    }
+
+    else if (noteList.scrollHeight <= noteList.clientHeight
+            && document.querySelector('.button_container')) { 
+        noteList.append(addBtn);
+        document.querySelector('.button_container').remove();
+    }
+
 }

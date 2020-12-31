@@ -34,9 +34,29 @@ button {
     align-items: center;
 }
 
-.note_selection {
+.note_wrapper {
     height: 90vh;
+    margin: 0;
+    padding: 0;
     border-right: 2px solid #BD93F9;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    flex: 0 1 25%;
+}
+.button_container {
+    width: 85%;
+    height: 15.5vw;
+    max-height: 90px;
+    padding-top: 7px;
+    border-top: 2px solid #BD93F9;
+    text-align: center;
+}
+.note_list {
+    width: 100%;
     overflow: auto;
 
     display: flex;
@@ -44,7 +64,7 @@ button {
     justify-content: center;
     align-content: flex-start;
 
-    flex: 0 1 25%;
+    flex: 1;
 }
 .note {
     width: 90%;
